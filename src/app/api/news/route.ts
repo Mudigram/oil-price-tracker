@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server";
 
+interface NewsArticle {
+  title: string;
+  description: string;
+  url: string;
+  source: { name: string };
+  publishedAt: string;
+}
+
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
@@ -26,7 +34,7 @@ export async function GET(req: Request) {
       const errText = await res.text();
       console.error("NewsAPI error:", res.status, errText);
       return NextResponse.json(
-        { error: "Failed to fetch news" },
+        { error: "Error fetching news" },
         { status: 500 }
       );
     }
@@ -34,7 +42,7 @@ export async function GET(req: Request) {
     const data = await res.json();
 
     return NextResponse.json({
-      articles: data.articles?.map((a: any) => ({
+      articles: data.articles?.map((a: NewsArticle) => ({
         title: a.title,
         description: a.description,
         url: a.url,
@@ -42,7 +50,7 @@ export async function GET(req: Request) {
         publishedAt: a.publishedAt,
       })),
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("news fetch error:", err);
     return NextResponse.json(
       { error: "Server error fetching news" },

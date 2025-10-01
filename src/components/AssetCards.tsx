@@ -1,6 +1,5 @@
 "use client";
 import { useAxios } from "@/hooks/useAxios";
-import { useState, useEffect } from "react";
 
 const COMMODITY_CODES = [
     "BRENT_CRUDE_USD",
@@ -93,19 +92,17 @@ function CommodityCard({ code }: { code: string }) {
 
             {/* Price Change */}
             <div className="flex items-center justify-between mb-4">
-                <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                    change === "up" 
-                        ? "bg-green-500/20 text-green-200 border border-green-400/30" 
+                <span className={`px-3 py-1 text-xs font-semibold rounded-full ${change === "up"
+                        ? "bg-green-500/20 text-green-200 border border-green-400/30"
                         : change === "down"
-                        ? "bg-red-500/20 text-red-200 border border-red-400/30"
-                        : "bg-white/20 text-white/80 border border-white/30"
-                }`}>
+                            ? "bg-red-500/20 text-red-200 border border-red-400/30"
+                            : "bg-white/20 text-white/80 border border-white/30"
+                    }`}>
                     {change === "up" ? "▲" : change === "down" ? "▼" : "—"} {change.toUpperCase()}
                 </span>
-                
-                <span className={`text-sm font-medium ${
-                    percentChange >= 0 ? "text-green-200" : "text-red-200"
-                }`}>
+
+                <span className={`text-sm font-medium ${percentChange >= 0 ? "text-green-200" : "text-red-200"
+                    }`}>
                     {percentChange >= 0 ? "+" : ""}{percentChange.toFixed(2)}%
                 </span>
             </div>
