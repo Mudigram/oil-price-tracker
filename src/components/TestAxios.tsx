@@ -3,17 +3,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function TestAxios() {
-    const [data, setData] = useState<any[]>([]);
+    interface Post { id: number; title: string; body: string }
+    const [data, setData] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
-                setData(res.data); // axios automatically parses JSON
-            } catch (err: any) {
-                setError(err.message);
+                const res = await axios.get<Post[]>("https://jsonplaceholder.typicode.com/posts");
+                setData(res.data);
+            } catch (err) {
+                const message = err instanceof Error ? err.message : "Failed to fetch";
+                setError(message);
             } finally {
                 setLoading(false);
             }

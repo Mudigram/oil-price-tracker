@@ -9,7 +9,7 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 type Commodity = {
     name: string;

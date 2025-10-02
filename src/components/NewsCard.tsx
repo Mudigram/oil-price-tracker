@@ -7,13 +7,20 @@ export default function TrendingNews() {
   if (loading) return <p className="text-center">Loading news...</p>;
   if (error) return <p className="text-center text-red-500">Error loading news</p>;
 
-  const articles = data?.articles ?? [];
+  type Article = {
+    title: string;
+    description?: string;
+    url: string;
+    source?: string;
+    publishedAt?: string;
+  };
+  const articles: Article[] = (data as { articles?: Article[] } | null)?.articles ?? [];
 
   return (
     <section className="mt-10 mb-10">
       <h2 className="text-xl font-bold text-gray-800 mb-4">🔥 Trending News</h2>
       <div className="flex space-x-4 overflow-x-auto scrollbar-hide pb-2">
-        {articles.map((article: any, i: number) => (
+        {articles.map((article, i) => (
           <div
             key={i}
             className="min-w-[300px] bg-white rounded-xl shadow hover:shadow-lg transition flex flex-col justify-between"
